@@ -1,10 +1,10 @@
 export interface LoginRequestData {
   /** admin 或 editor */
-  username: "admin" | "editor"
+  userAccount: "admin" | "editor"
   /** 密码 */
-  password: string
+  userPassword: string
   /** 验证码 */
-  code: string
+  // code: string
 }
 
 export type LoginCodeResponseData = ApiResponseData<string>
