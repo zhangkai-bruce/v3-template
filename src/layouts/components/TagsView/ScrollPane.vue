@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { ref, nextTick } from "vue"
-import { RouterLink, useRoute } from "vue-router"
-import { useSettingsStore } from "@/store/modules/settings"
-import { useRouteListener } from "@/hooks/useRouteListener"
+import {nextTick, ref} from "vue"
+import {RouterLink, useRoute} from "vue-router"
+import {useSettingsStore} from "@/store/modules/settings"
+import {useRouteListener} from "@/hooks/useRouteListener"
 import Screenfull from "@/components/Screenfull/index.vue"
-import { ElScrollbar } from "element-plus"
-import { ArrowLeft, ArrowRight } from "@element-plus/icons-vue"
+import {ElScrollbar} from "element-plus"
+import {ArrowLeft, ArrowRight} from "@element-plus/icons-vue"
 
 interface Props {
   tagRefs: InstanceType<typeof RouterLink>[]
@@ -15,7 +15,7 @@ const props = defineProps<Props>()
 
 const route = useRoute()
 const settingsStore = useSettingsStore()
-const { listenerRouteChange } = useRouteListener()
+const {listenerRouteChange} = useRouteListener()
 
 /** 滚动条组件元素的引用 */
 const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>()
@@ -28,12 +28,12 @@ let currentScrollLeft = 0
 const translateDistance = 200
 
 /** 滚动时触发 */
-const scroll = ({ scrollLeft }: { scrollLeft: number }) => {
+const scroll = ({scrollLeft}: { scrollLeft: number }) => {
   currentScrollLeft = scrollLeft
 }
 
 /** 鼠标滚轮滚动时触发 */
-const wheelScroll = ({ deltaY }: WheelEvent) => {
+const wheelScroll = ({deltaY}: WheelEvent) => {
   if (/^-/.test(deltaY.toString())) {
     scrollTo("left")
   } else {
@@ -50,13 +50,13 @@ const getWidth = () => {
   /** 最后剩余可滚动的宽度 */
   const lastDistance = scrollbarContentRefWidth - scrollbarRefWidth - currentScrollLeft
 
-  return { scrollbarContentRefWidth, scrollbarRefWidth, lastDistance }
+  return {scrollbarContentRefWidth, scrollbarRefWidth, lastDistance}
 }
 
 /** 左右滚动 */
 const scrollTo = (direction: "left" | "right", distance: number = translateDistance) => {
   let scrollLeft = 0
-  const { scrollbarContentRefWidth, scrollbarRefWidth, lastDistance } = getWidth()
+  const {scrollbarContentRefWidth, scrollbarRefWidth, lastDistance} = getWidth()
   // 没有横向滚动条，直接结束
   if (scrollbarRefWidth > scrollbarContentRefWidth) return
   if (direction === "left") {
@@ -77,7 +77,7 @@ const moveTo = () => {
       const el: HTMLElement = tagRefs[i].$el
       const offsetWidth = el.offsetWidth
       const offsetLeft = el.offsetLeft
-      const { scrollbarRefWidth } = getWidth()
+      const {scrollbarRefWidth} = getWidth()
       // 当前 tag 在可视区域左边时
       if (offsetLeft < currentScrollLeft) {
         const distance = currentScrollLeft - offsetLeft
@@ -104,17 +104,17 @@ listenerRouteChange(() => {
 <template>
   <div class="scroll-container">
     <el-icon class="arrow left" @click="scrollTo('left')">
-      <ArrowLeft />
+      <ArrowLeft/>
     </el-icon>
-    <el-scrollbar ref="scrollbarRef" @wheel.passive="wheelScroll" @scroll="scroll">
+    <el-scrollbar ref="scrollbarRef" @scroll="scroll" @wheel.passive="wheelScroll">
       <div ref="scrollbarContentRef" class="scrollbar-content">
-        <slot />
+        <slot/>
       </div>
     </el-scrollbar>
     <el-icon class="arrow right" @click="scrollTo('right')">
-      <ArrowRight />
+      <ArrowRight/>
     </el-icon>
-    <Screenfull v-if="settingsStore.showScreenfull" :content="true" class="screenfull" />
+    <Screenfull v-if="settingsStore.showScreenfull" :content="true" class="screenfull"/>
   </div>
 </template>
 
@@ -124,26 +124,32 @@ listenerRouteChange(() => {
   user-select: none;
   display: flex;
   justify-content: space-between;
+
   .arrow {
     width: 40px;
     height: 100%;
     font-size: 18px;
     cursor: pointer;
+
     &.left {
       box-shadow: 5px 0 5px -6px var(--el-border-color-darker);
     }
+
     &.right {
       box-shadow: -5px 0 5px -6px var(--el-border-color-darker);
     }
   }
+
   .el-scrollbar {
     flex: 1;
     // 防止换行（超出宽度时，显示滚动条）
     white-space: nowrap;
+
     .scrollbar-content {
       display: inline-block;
     }
   }
+
   .screenfull {
     width: 40px;
     display: flex;

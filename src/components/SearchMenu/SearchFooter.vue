@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useDevice } from "@/hooks/useDevice"
+import {useDevice} from "@/hooks/useDevice"
 
 interface Props {
   total: number
@@ -7,23 +7,23 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const { isMobile } = useDevice()
+const {isMobile} = useDevice()
 </script>
 
 <template>
   <div class="search-footer">
     <template v-if="!isMobile">
       <span class="search-footer-item">
-        <SvgIcon name="keyboard-enter" />
+        <SvgIcon name="keyboard-enter"/>
         <span>确认</span>
       </span>
       <span class="search-footer-item">
-        <SvgIcon name="keyboard-up" />
-        <SvgIcon name="keyboard-down" />
+        <SvgIcon name="keyboard-up"/>
+        <SvgIcon name="keyboard-down"/>
         <span>切换</span>
       </span>
       <span class="search-footer-item">
-        <SvgIcon name="keyboard-esc" />
+        <SvgIcon name="keyboard-esc"/>
         <span>关闭</span>
       </span>
     </template>
@@ -36,10 +36,12 @@ const { isMobile } = useDevice()
   display: flex;
   color: var(--el-text-color-secondary);
   font-size: 14px;
+
   &-item {
     display: flex;
     align-items: center;
     margin-right: 12px;
+
     .svg-icon {
       margin-right: 5px;
       padding: 2px;
@@ -47,6 +49,7 @@ const { isMobile } = useDevice()
       background-color: var(--el-fill-color);
     }
   }
+
   &-total {
     margin: 0 0 0 auto;
   }

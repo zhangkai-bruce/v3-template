@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import { computed } from "vue"
-import { storeToRefs } from "pinia"
-import { useAppStore } from "@/store/modules/app"
-import { useSettingsStore } from "@/store/modules/settings"
-import { AppMain, NavigationBar, Sidebar, TagsView } from "./components"
-import { useDevice } from "@/hooks/useDevice"
+import {computed} from "vue"
+import {storeToRefs} from "pinia"
+import {useAppStore} from "@/store/modules/app"
+import {useSettingsStore} from "@/store/modules/settings"
+import {AppMain, NavigationBar, Sidebar, TagsView} from "./components"
+import {useDevice} from "@/hooks/useDevice"
 
-const { isMobile } = useDevice()
+const {isMobile} = useDevice()
 const appStore = useAppStore()
 const settingsStore = useSettingsStore()
-const { showTagsView, fixedHeader } = storeToRefs(settingsStore)
+const {showTagsView, fixedHeader} = storeToRefs(settingsStore)
 
 /** 定义计算属性 layoutClasses，用于控制布局的类名 */
 const layoutClasses = computed(() => {
@@ -30,24 +30,25 @@ const handleClickOutside = () => {
 <template>
   <div :class="layoutClasses" class="app-wrapper">
     <!-- mobile 端侧边栏遮罩层 -->
-    <div v-if="layoutClasses.mobile && layoutClasses.openSidebar" class="drawer-bg" @click="handleClickOutside" />
+    <div v-if="layoutClasses.mobile && layoutClasses.openSidebar" class="drawer-bg" @click="handleClickOutside"/>
     <!-- 左侧边栏 -->
-    <Sidebar class="sidebar-container" />
+    <Sidebar class="sidebar-container"/>
     <!-- 主容器 -->
     <div :class="{ hasTagsView: showTagsView }" class="main-container">
       <!-- 头部导航栏和标签栏 -->
       <div :class="{ 'fixed-header': fixedHeader }" class="layout-header">
-        <NavigationBar />
-        <TagsView v-show="showTagsView" />
+        <NavigationBar/>
+        <TagsView v-show="showTagsView"/>
       </div>
       <!-- 页面主体内容 -->
-      <AppMain class="app-main" />
+      <AppMain class="app-main"/>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import "@/styles/mixins.scss";
+
 $transition-time: 0.35s;
 
 .app-wrapper {
@@ -119,6 +120,7 @@ $transition-time: 0.35s;
   .app-main {
     min-height: calc(100vh - var(--v3-header-height));
   }
+
   .fixed-header + .app-main {
     padding-top: var(--v3-header-height);
   }
@@ -128,9 +130,11 @@ $transition-time: 0.35s;
   .sidebar-container {
     width: var(--v3-sidebar-hide-width) !important;
   }
+
   .main-container {
     margin-left: var(--v3-sidebar-hide-width);
   }
+
   .fixed-header {
     width: calc(100% - var(--v3-sidebar-hide-width));
   }
@@ -142,16 +146,20 @@ $transition-time: 0.35s;
     transition: transform $transition-time;
     width: var(--v3-sidebar-width) !important;
   }
+
   .main-container {
     margin-left: 0px;
   }
+
   .fixed-header {
     width: 100%;
   }
+
   &.openSidebar {
     position: fixed;
     top: 0;
   }
+
   &.hideSidebar {
     .sidebar-container {
       pointer-events: none;

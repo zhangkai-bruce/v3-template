@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { getCurrentInstance, onBeforeMount, onBeforeUnmount, onMounted, ref } from "vue"
-import { type RouteRecordName, type RouteRecordRaw } from "vue-router"
+import {getCurrentInstance, onBeforeMount, onBeforeUnmount, onMounted, ref} from "vue"
+import {type RouteRecordName, type RouteRecordRaw} from "vue-router"
 
 interface Props {
   list: RouteRecordRaw[]
@@ -8,7 +8,7 @@ interface Props {
 }
 
 /** 选中的菜单 */
-const modelValue = defineModel<RouteRecordName | undefined>({ required: true })
+const modelValue = defineModel<RouteRecordName | undefined>({required: true})
 const props = defineProps<Props>()
 
 const instance = getCurrentInstance()
@@ -60,26 +60,26 @@ onBeforeUnmount(() => {
   window.removeEventListener("resize", getScrollbarHeight)
 })
 
-defineExpose({ getScrollTop })
+defineExpose({getScrollTop})
 </script>
 
 <template>
   <!-- 外层 div 不能删除，是用来接收父组件 click 事件的 -->
   <div>
     <div
-      v-for="(item, index) in list"
-      :key="index"
-      :ref="`resultItemRef${index}`"
-      class="result-item"
-      :style="itemStyle(item)"
-      @mouseenter="handleMouseenter(item)"
+        v-for="(item, index) in list"
+        :key="index"
+        :ref="`resultItemRef${index}`"
+        :style="itemStyle(item)"
+        class="result-item"
+        @mouseenter="handleMouseenter(item)"
     >
-      <SvgIcon v-if="item.meta?.svgIcon" :name="item.meta.svgIcon" />
-      <component v-else-if="item.meta?.elIcon" :is="item.meta.elIcon" class="el-icon" />
+      <SvgIcon v-if="item.meta?.svgIcon" :name="item.meta.svgIcon"/>
+      <component :is="item.meta.elIcon" v-else-if="item.meta?.elIcon" class="el-icon"/>
       <span class="result-item-title">
         {{ item.meta?.title }}
       </span>
-      <SvgIcon v-if="modelValue && modelValue === item.name" name="keyboard-enter" />
+      <SvgIcon v-if="modelValue && modelValue === item.name" name="keyboard-enter"/>
     </div>
   </div>
 </template>
@@ -96,14 +96,17 @@ defineExpose({ getScrollTop })
   border: 1px solid var(--el-border-color);
   border-radius: 4px;
   cursor: pointer;
+
   .svg-icon {
     min-width: 1em;
     font-size: 18px;
   }
+
   .el-icon {
     width: 1em;
     font-size: 18px;
   }
+
   &-title {
     flex: 1;
     margin-left: 12px;

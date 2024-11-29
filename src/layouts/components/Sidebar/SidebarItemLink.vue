@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { isExternal } from "@/utils/validate"
+import {isExternal} from "@/utils/validate"
 
 interface Props {
   to: string
@@ -9,10 +9,10 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <a v-if="isExternal(props.to)" :href="props.to" target="_blank" rel="noopener">
-    <slot />
+  <a v-if="isExternal(props.to)" :href="props.to" rel="noopener" target="_blank">
+    <slot/>
   </a>
   <router-link v-else :to="props.to">
-    <slot />
+    <slot/>
   </router-link>
 </template>

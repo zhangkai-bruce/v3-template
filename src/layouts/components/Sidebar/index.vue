@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import { computed } from "vue"
-import { useRoute } from "vue-router"
-import { useAppStore } from "@/store/modules/app"
-import { usePermissionStore } from "@/store/modules/permission"
-import { useSettingsStore } from "@/store/modules/settings"
+import {computed} from "vue"
+import {useRoute} from "vue-router"
+import {useAppStore} from "@/store/modules/app"
+import {usePermissionStore} from "@/store/modules/permission"
+import {useSettingsStore} from "@/store/modules/settings"
 import SidebarItem from "./SidebarItem.vue"
 import Logo from "../Logo/index.vue"
-import { useDevice } from "@/hooks/useDevice"
-import { useLayoutMode } from "@/hooks/useLayoutMode"
-import { getCssVar } from "@/utils/css"
+import {useDevice} from "@/hooks/useDevice"
+import {useLayoutMode} from "@/hooks/useLayoutMode"
+import {getCssVar} from "@/utils/css"
 
 const v3SidebarMenuBgColor = getCssVar("--v3-sidebar-menu-bg-color")
 const v3SidebarMenuTextColor = getCssVar("--v3-sidebar-menu-text-color")
 const v3SidebarMenuActiveTextColor = getCssVar("--v3-sidebar-menu-active-text-color")
 
-const { isMobile } = useDevice()
-const { isLeft, isTop } = useLayoutMode()
+const {isMobile} = useDevice()
+const {isLeft, isTop} = useLayoutMode()
 const route = useRoute()
 const appStore = useAppStore()
 const permissionStore = usePermissionStore()
@@ -23,7 +23,7 @@ const settingsStore = useSettingsStore()
 
 const activeMenu = computed(() => {
   const {
-    meta: { activeMenu },
+    meta: {activeMenu},
     path
   } = route
   return activeMenu ? activeMenu : path
@@ -51,19 +51,19 @@ const hiddenScrollbarVerticalBar = computed(() => {
 
 <template>
   <div :class="{ 'has-logo': isLogo }">
-    <Logo v-if="isLogo" :collapse="isCollapse" />
+    <Logo v-if="isLogo" :collapse="isCollapse"/>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
-        :default-active="activeMenu"
-        :collapse="isCollapse && !isTop"
-        :background-color="backgroundColor"
-        :text-color="textColor"
-        :active-text-color="activeTextColor"
-        :unique-opened="true"
-        :collapse-transition="false"
-        :mode="isTop && !isMobile ? 'horizontal' : 'vertical'"
+          :active-text-color="activeTextColor"
+          :background-color="backgroundColor"
+          :collapse="isCollapse && !isTop"
+          :collapse-transition="false"
+          :default-active="activeMenu"
+          :mode="isTop && !isMobile ? 'horizontal' : 'vertical'"
+          :text-color="textColor"
+          :unique-opened="true"
       >
-        <SidebarItem v-for="route in noHiddenRoutes" :key="route.path" :item="route" :base-path="route.path" />
+        <SidebarItem v-for="route in noHiddenRoutes" :key="route.path" :base-path="route.path" :item="route"/>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -92,19 +92,23 @@ const hiddenScrollbarVerticalBar = computed(() => {
 .el-scrollbar {
   // 多 1% 是为了在顶部模式时防止垂直滚动
   height: 101%;
+
   :deep(.scrollbar-wrapper) {
     // 限制水平宽度
     overflow-x: hidden !important;
+
     .el-scrollbar__view {
       height: 100%;
     }
   }
+
   // 滚动条
   :deep(.el-scrollbar__bar) {
     &.is-horizontal {
       // 隐藏水平滚动条
       display: none;
     }
+
     &.is-vertical {
       // 当为顶部模式时隐藏垂直滚动条
       display: v-bind(hiddenScrollbarVerticalBar);
@@ -128,6 +132,7 @@ const hiddenScrollbarVerticalBar = computed(() => {
 :deep(.el-menu--horizontal .el-menu-item) {
   height: v-bind(sidebarMenuItemHeight);
   line-height: v-bind(sidebarMenuItemHeight);
+
   &.is-active,
   &:hover {
     background-color: v-bind(sidebarMenuHoverBgColor);

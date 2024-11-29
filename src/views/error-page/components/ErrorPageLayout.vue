@@ -1,7 +1,7 @@
 <template>
   <div class="error-page">
     <div class="error-page-svg">
-      <slot />
+      <slot/>
     </div>
     <router-link to="/">
       <el-button type="primary">回到首页</el-button>
@@ -16,6 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   &-svg {
     width: 400px;
     margin-bottom: 50px;

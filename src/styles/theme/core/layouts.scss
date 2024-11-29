@@ -4,10 +4,13 @@
   // 侧边栏
   .sidebar-container {
     background-color: var(--el-bg-color);
+
     .el-menu {
       background-color: var(--el-bg-color);
+
       .el-menu-item {
         background-color: var(--el-bg-color);
+
         &.is-active,
         &:hover {
           background-color: var(--el-bg-color-overlay);
@@ -15,9 +18,11 @@
         }
       }
     }
+
     .el-sub-menu__title {
       background-color: var(--el-bg-color);
     }
+
     .el-sub-menu {
       &.is-active {
         > .el-sub-menu__title {

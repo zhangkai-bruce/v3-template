@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useLayoutMode } from "@/hooks/useLayoutMode"
+import {useLayoutMode} from "@/hooks/useLayoutMode"
 import logo from "@/assets/layouts/logo.png?url"
 import logoText1 from "@/assets/layouts/logo-text-1.png?url"
 import logoText2 from "@/assets/layouts/logo-text-2.png?url"
@@ -12,17 +12,17 @@ const props = withDefaults(defineProps<Props>(), {
   collapse: true
 })
 
-const { isLeft, isTop } = useLayoutMode()
+const {isLeft, isTop} = useLayoutMode()
 </script>
 
 <template>
-  <div class="layout-logo-container" :class="{ collapse: props.collapse, 'layout-mode-top': isTop }">
+  <div :class="{ collapse: props.collapse, 'layout-mode-top': isTop }" class="layout-logo-container">
     <transition name="layout-logo-fade">
       <router-link v-if="props.collapse" key="collapse" to="/">
-        <img :src="logo" class="layout-logo" />
+        <img :src="logo" class="layout-logo"/>
       </router-link>
       <router-link v-else key="expand" to="/">
-        <img :src="!isLeft ? logoText2 : logoText1" class="layout-logo-text" />
+        <img :src="!isLeft ? logoText2 : logoText1" class="layout-logo-text"/>
       </router-link>
     </transition>
   </div>
@@ -36,9 +36,11 @@ const { isLeft, isTop } = useLayoutMode()
   line-height: var(--v3-header-height);
   text-align: center;
   overflow: hidden;
+
   .layout-logo {
     display: none;
   }
+
   .layout-logo-text {
     height: 100%;
     vertical-align: middle;
@@ -57,6 +59,7 @@ const { isLeft, isTop } = useLayoutMode()
     vertical-align: middle;
     display: inline-block;
   }
+
   .layout-logo-text {
     display: none;
   }

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { computed, ref, watchEffect } from "vue"
-import { ElMessage } from "element-plus"
+import {computed, ref, watchEffect} from "vue"
+import {ElMessage} from "element-plus"
 import screenfull from "screenfull"
 
 interface Props {
@@ -73,12 +73,12 @@ const handleContentFullClick = () => {
 <template>
   <div>
     <!-- 全屏 -->
-    <el-tooltip v-if="!content" effect="dark" :content="fullscreenTips" placement="bottom">
-      <SvgIcon :name="fullscreenSvgName" @click="handleFullscreenClick" />
+    <el-tooltip v-if="!content" :content="fullscreenTips" effect="dark" placement="bottom">
+      <SvgIcon :name="fullscreenSvgName" @click="handleFullscreenClick"/>
     </el-tooltip>
     <!-- 内容区 -->
     <el-dropdown v-else :disabled="isFullscreen">
-      <SvgIcon :name="contentLargeSvgName" />
+      <SvgIcon :name="contentLargeSvgName"/>
       <template #dropdown>
         <el-dropdown-menu>
           <!-- 内容区放大 -->
@@ -94,6 +94,7 @@ const handleContentFullClick = () => {
 <style lang="scss" scoped>
 .svg-icon {
   font-size: 20px;
+
   &:focus {
     outline: none;
   }

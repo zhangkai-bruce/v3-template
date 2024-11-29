@@ -11,7 +11,7 @@ import Owl from "./components/Owl.vue"
 import {useFocus} from "./hooks/useFocus"
 
 const router = useRouter()
-const { isFocus, handleBlur, handleFocus } = useFocus()
+const {isFocus, handleBlur, handleFocus} = useFocus()
 
 /** 登录表单元素的引用 */
 const loginFormRef = ref<FormInstance | null>(null)
@@ -28,12 +28,12 @@ const loginFormData: LoginRequestData = reactive({
 })
 /** 登录表单校验规则 */
 const loginFormRules: FormRules = {
-  userAccount: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+  userAccount: [{required: true, message: "请输入用户名", trigger: "blur"}],
   userPassword: [
-    { required: true, message: "请输入密码", trigger: "blur" },
-    { min: 8, max: 16, message: "长度在 8 到 16 个字符", trigger: "blur" }
+    {required: true, message: "请输入密码", trigger: "blur"},
+    {min: 8, max: 16, message: "长度在 8 到 16 个字符", trigger: "blur"}
   ],
-  code: [{ required: true, message: "请输入验证码", trigger: "blur" }]
+  code: [{required: true, message: "请输入验证码", trigger: "blur"}]
 }
 /** 登录逻辑 */
 const handleLogin = () => {
@@ -41,17 +41,17 @@ const handleLogin = () => {
     if (valid) {
       loading.value = true
       useUserStore()
-        .login(loginFormData)
-        .then(() => {
-          router.push({ path: "/" })
-        })
-        // .catch(() => {
-        //   createCode()
-        //   loginFormData.password = ""
-        // })
-        .finally(() => {
-          loading.value = false
-        })
+          .login(loginFormData)
+          .then(() => {
+            router.push({path: "/"})
+          })
+          .catch(() => {
+            createCode()
+            loginFormData.userPassword = ""
+          })
+          .finally(() => {
+            loading.value = false
+          })
     } else {
       console.error("表单校验不通过", fields)
     }
@@ -69,69 +69,69 @@ const createCode = () => {
 }
 
 /** 初始化验证码 */
-// createCode()
+createCode()
 </script>
 
 <template>
   <div class="login-container">
-    <ThemeSwitch class="theme-switch" />
-    <Owl :close-eyes="isFocus" />
+    <ThemeSwitch class="theme-switch"/>
+    <Owl :close-eyes="isFocus"/>
     <div class="login-card">
       <div class="title">
-        <img src="@/assets/layouts/logo-text-2.png" />
+        <img src="@/assets/layouts/logo-text-2.png"/>
       </div>
       <div class="content">
         <el-form ref="loginFormRef" :model="loginFormData" :rules="loginFormRules" @keyup.enter="handleLogin">
           <el-form-item prop="userAccount">
             <el-input
-              v-model.trim="loginFormData.userAccount"
-              placeholder="用户名"
-              type="text"
-              tabindex="1"
-              :prefix-icon="User"
-              size="large"
+                v-model.trim="loginFormData.userAccount"
+                :prefix-icon="User"
+                placeholder="用户名"
+                size="large"
+                tabindex="1"
+                type="text"
             />
           </el-form-item>
           <el-form-item prop="userPassword">
             <el-input
-              v-model.trim="loginFormData.userPassword"
-              placeholder="密码"
-              type="password"
-              tabindex="2"
-              :prefix-icon="Lock"
-              size="large"
-              show-password
-              @blur="handleBlur"
-              @focus="handleFocus"
+                v-model.trim="loginFormData.userPassword"
+                :prefix-icon="Lock"
+                placeholder="密码"
+                show-password
+                size="large"
+                tabindex="2"
+                type="password"
+                @blur="handleBlur"
+                @focus="handleFocus"
             />
           </el-form-item>
-          <!--          <el-form-item prop="code">
-                      <el-input
-                        v-model.trim="loginFormData.code"
-                        placeholder="验证码"
-                        type="text"
-                        tabindex="3"
-                        :prefix-icon="Key"
-                        maxlength="7"
-                        size="large"
-                      >
-                        <template #append>
-                          <el-image :src="codeUrl" @click="createCode" draggable="false">
-                            <template #placeholder>
-                              <el-icon>
-                                <Picture />
-                              </el-icon>
-                            </template>
-                            <template #error>
-                              <el-icon>
-                                <Loading />
-                              </el-icon>
-                            </template>
-                          </el-image>
-                        </template>
-                      </el-input>
-                    </el-form-item>-->
-          <el-button :loading="loading" type="primary" size="large" @click.prevent="handleLogin">登 录</el-button>
+          <el-form-item prop="code">
+            <el-input
+                v-model.trim="loginFormData.code"
+                :prefix-icon="Lock"
+                maxlength="4"
+                placeholder="验证码"
+                size="large"
+                tabindex="3"
+                type="text"
+            >
+              <template #append>
+                <el-image :src="codeUrl" draggable="false" @click="createCode">
+                  <template #placeholder>
+                    <el-icon>
+                      <Picture/>
+                    </el-icon>
+                  </template>
+                  <template #error>
+                    <el-icon>
+                      <Loading/>
+                    </el-icon>
+                  </template>
+                </el-image>
+              </template>
+            </el-input>
+          </el-form-item>
+          <el-button :loading="loading" size="large" type="primary" @click.prevent="handleLogin">登 录</el-button>
         </el-form>
       </div>
     </div>
@@ -146,12 +146,14 @@ const createCode = () => {
   align-items: center;
   width: 100%;
   min-height: 100%;
+
   .theme-switch {
     position: fixed;
     top: 5%;
     right: 5%;
     cursor: pointer;
   }
+
   .login-card {
     width: 480px;
     max-width: 90%;
@@ -159,20 +161,25 @@ const createCode = () => {
     box-shadow: 0 0 10px #dcdfe6;
     background-color: var(--el-bg-color);
     overflow: hidden;
+
     .title {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 150px;
+
       img {
         height: 100%;
       }
     }
+
     .content {
       padding: 20px 50px 50px 50px;
+
       :deep(.el-input-group__append) {
         padding: 0;
         overflow: hidden;
+
         .el-image {
           width: 100px;
           height: 40px;
@@ -182,6 +189,7 @@ const createCode = () => {
           text-align: center;
         }
       }
+
       .el-button {
         width: 100%;
         margin-top: 10px;

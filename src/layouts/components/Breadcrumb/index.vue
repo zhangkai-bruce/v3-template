@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { ref } from "vue"
-import { type RouteLocationMatched, useRoute, useRouter } from "vue-router"
-import { useRouteListener } from "@/hooks/useRouteListener"
-import { compile } from "path-to-regexp"
+import {ref} from "vue"
+import {type RouteLocationMatched, useRoute, useRouter} from "vue-router"
+import {useRouteListener} from "@/hooks/useRouteListener"
+import {compile} from "path-to-regexp"
 
 const route = useRoute()
 const router = useRouter()
-const { listenerRouteChange } = useRouteListener()
+const {listenerRouteChange} = useRouteListener()
 
 /** 定义响应式数据 breadcrumbs，用于存储面包屑导航信息 */
 const breadcrumbs = ref<RouteLocationMatched[]>([])
@@ -24,7 +24,7 @@ const pathCompile = (path: string) => {
 
 /** 处理面包屑导航点击事件 */
 const handleLink = (item: RouteLocationMatched) => {
-  const { redirect, path } = item
+  const {redirect, path} = item
   if (redirect) {
     router.push(redirect as string)
     return
@@ -55,9 +55,11 @@ listenerRouteChange((route) => {
 <style lang="scss" scoped>
 .el-breadcrumb {
   line-height: var(--v3-navigationbar-height);
+
   .no-redirect {
     color: var(--el-text-color-placeholder);
   }
+
   a {
     font-weight: normal;
   }

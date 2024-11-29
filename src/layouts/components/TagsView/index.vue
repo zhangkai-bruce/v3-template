@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import { ref, watch } from "vue"
-import { type RouteLocationNormalizedLoaded, type RouteRecordRaw, RouterLink, useRoute, useRouter } from "vue-router"
-import { type TagView, useTagsViewStore } from "@/store/modules/tags-view"
-import { usePermissionStore } from "@/store/modules/permission"
-import { useRouteListener } from "@/hooks/useRouteListener"
+import {ref, watch} from "vue"
+import {type RouteLocationNormalizedLoaded, type RouteRecordRaw, RouterLink, useRoute, useRouter} from "vue-router"
+import {type TagView, useTagsViewStore} from "@/store/modules/tags-view"
+import {usePermissionStore} from "@/store/modules/permission"
+import {useRouteListener} from "@/hooks/useRouteListener"
 import path from "path-browserify"
 import ScrollPane from "./ScrollPane.vue"
-import { Close } from "@element-plus/icons-vue"
+import {Close} from "@element-plus/icons-vue"
 
 const router = useRouter()
 const route = useRoute()
 const tagsViewStore = useTagsViewStore()
 const permissionStore = usePermissionStore()
-const { listenerRouteChange } = useRouteListener()
+const {listenerRouteChange} = useRouteListener()
 
 /** 标签页组件元素的引用数组 */
 const tagRefs = ref<InstanceType<typeof RouterLink>[]>([])
@@ -48,7 +48,7 @@ const filterAffixTags = (routes: RouteRecordRaw[], basePath = "/") => {
         fullPath: tagPath,
         path: tagPath,
         name: route.name,
-        meta: { ...route.meta }
+        meta: {...route.meta}
       })
     }
     if (route.children) {
@@ -79,7 +79,7 @@ const addTags = (route: RouteLocationNormalizedLoaded) => {
 /** 刷新当前正在右键操作的标签页 */
 const refreshSelectedTag = (view: TagView) => {
   tagsViewStore.delCachedView(view)
-  router.replace({ path: "/redirect" + view.path, query: view.query })
+  router.replace({path: "/redirect" + view.path, query: view.query})
 }
 
 /** 关闭当前正在右键操作的标签页 */
@@ -117,7 +117,7 @@ const toLastView = (visitedViews: TagView[], view: TagView) => {
     // 如果 TagsView 全部被关闭了，则默认重定向到主页
     if (view.name === "Dashboard") {
       // 重新加载主页
-      router.push({ path: "/redirect" + view.path, query: view.query })
+      router.push({path: "/redirect" + view.path, query: view.query})
     } else {
       router.push("/")
     }
@@ -160,24 +160,24 @@ listenerRouteChange((route) => {
 
 <template>
   <div class="tags-view-container">
-    <ScrollPane class="tags-view-wrapper" :tag-refs="tagRefs">
+    <ScrollPane :tag-refs="tagRefs" class="tags-view-wrapper">
       <router-link
-        ref="tagRefs"
-        v-for="tag in tagsViewStore.visitedViews"
-        :key="tag.path"
-        :class="{ active: isActive(tag) }"
-        class="tags-view-item"
-        :to="{ path: tag.path, query: tag.query }"
-        @click.middle="!isAffix(tag) && closeSelectedTag(tag)"
-        @contextmenu.prevent="openMenu(tag, $event)"
+          v-for="tag in tagsViewStore.visitedViews"
+          :key="tag.path"
+          ref="tagRefs"
+          :class="{ active: isActive(tag) }"
+          :to="{ path: tag.path, query: tag.query }"
+          class="tags-view-item"
+          @click.middle="!isAffix(tag) && closeSelectedTag(tag)"
+          @contextmenu.prevent="openMenu(tag, $event)"
       >
         {{ tag.meta?.title }}
         <el-icon v-if="!isAffix(tag)" :size="12" @click.prevent.stop="closeSelectedTag(tag)">
-          <Close />
+          <Close/>
         </el-icon>
       </router-link>
     </ScrollPane>
-    <ul v-show="visible" class="contextmenu" :style="{ left: left + 'px', top: top + 'px' }">
+    <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
       <li @click="refreshSelectedTag(selectedTag)">刷新</li>
       <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">关闭</li>
       <li @click="closeOthersTags">关闭其它</li>
@@ -192,6 +192,7 @@ listenerRouteChange((route) => {
   width: 100%;
   color: var(--v3-tagsview-text-color);
   overflow: hidden;
+
   .tags-view-wrapper {
     .tags-view-item {
       display: inline-block;
@@ -206,21 +207,26 @@ listenerRouteChange((route) => {
       font-size: 12px;
       margin-left: 5px;
       margin-top: 4px;
+
       &:first-of-type {
         margin-left: 5px;
       }
+
       &:last-of-type {
         margin-right: 5px;
       }
+
       &.active {
         background-color: var(--v3-tagsview-tag-active-bg-color);
         color: var(--v3-tagsview-tag-active-text-color);
         border-color: var(--v3-tagsview-tag-active-border-color);
       }
+
       .el-icon {
         margin: 0 2px;
         vertical-align: middle;
         border-radius: 50%;
+
         &:hover {
           background-color: var(--v3-tagsview-tag-icon-hover-bg-color);
           color: var(--v3-tagsview-tag-icon-hover-color);
@@ -228,6 +234,7 @@ listenerRouteChange((route) => {
       }
     }
   }
+
   .contextmenu {
     margin: 0;
     z-index: 3000;
@@ -239,10 +246,12 @@ listenerRouteChange((route) => {
     color: var(--v3-tagsview-contextmenu-text-color);
     background-color: var(--v3-tagsview-contextmenu-bg-color);
     box-shadow: var(--v3-tagsview-contextmenu-box-shadow);
+
     li {
       margin: 0;
       padding: 7px 16px;
       cursor: pointer;
+
       &:hover {
         color: var(--v3-tagsview-contextmenu-hover-text-color);
         background-color: var(--v3-tagsview-contextmenu-hover-bg-color);

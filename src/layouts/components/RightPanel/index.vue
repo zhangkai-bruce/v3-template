@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref } from "vue"
-import { Setting } from "@element-plus/icons-vue"
+import {ref} from "vue"
+import {Setting} from "@element-plus/icons-vue"
 
 interface Props {
   buttonTop?: number
@@ -17,11 +17,11 @@ const show = ref(false)
 <template>
   <div class="handle-button" @click="show = true">
     <el-icon :size="24">
-      <Setting />
+      <Setting/>
     </el-icon>
   </div>
-  <el-drawer v-model="show" size="300px" :with-header="false">
-    <slot />
+  <el-drawer v-model="show" :with-header="false" size="300px">
+    <slot/>
   </el-drawer>
 </template>
 

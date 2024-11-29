@@ -1,37 +1,37 @@
 <script lang="ts" setup>
-import { useLayoutMode } from "@/hooks/useLayoutMode"
-import { LayoutModeEnum } from "@/constants/app-key"
+import {useLayoutMode} from "@/hooks/useLayoutMode"
+import {LayoutModeEnum} from "@/constants/app-key"
 
-const { isLeft, isTop, isLeftTop, setLayoutMode } = useLayoutMode()
+const {isLeft, isTop, isLeftTop, setLayoutMode} = useLayoutMode()
 </script>
 
 <template>
   <div class="select-layout-mode">
     <el-tooltip content="左侧模式">
-      <el-container class="layout-mode left" :class="{ active: isLeft }" @click="setLayoutMode(LayoutModeEnum.Left)">
-        <el-aside />
+      <el-container :class="{ active: isLeft }" class="layout-mode left" @click="setLayoutMode(LayoutModeEnum.Left)">
+        <el-aside/>
         <el-container>
-          <el-header />
-          <el-main />
+          <el-header/>
+          <el-main/>
         </el-container>
       </el-container>
     </el-tooltip>
     <el-tooltip content="顶部模式">
-      <el-container class="layout-mode top" :class="{ active: isTop }" @click="setLayoutMode(LayoutModeEnum.Top)">
-        <el-header />
-        <el-main />
+      <el-container :class="{ active: isTop }" class="layout-mode top" @click="setLayoutMode(LayoutModeEnum.Top)">
+        <el-header/>
+        <el-main/>
       </el-container>
     </el-tooltip>
     <el-tooltip content="混合模式">
       <el-container
-        class="layout-mode left-top"
-        :class="{ active: isLeftTop }"
-        @click="setLayoutMode(LayoutModeEnum.LeftTop)"
+          :class="{ active: isLeftTop }"
+          class="layout-mode left-top"
+          @click="setLayoutMode(LayoutModeEnum.LeftTop)"
       >
-        <el-header />
+        <el-header/>
         <el-container>
-          <el-aside />
-          <el-main />
+          <el-aside/>
+          <el-main/>
         </el-container>
       </el-container>
     </el-tooltip>
@@ -51,6 +51,7 @@ const { isLeft, isTop, isLeftTop, setLayoutMode } = useLayoutMode()
   cursor: pointer;
   border-radius: 6px;
   border: 2px solid transparent;
+
   &:hover {
     border: 2px solid var(--el-color-primary);
   }
@@ -72,9 +73,11 @@ const { isLeft, isTop, isLeftTop, setLayoutMode } = useLayoutMode()
   .el-header {
     background-color: var(--el-fill-color-darker);
   }
+
   .el-aside {
     background-color: var(--el-color-primary);
   }
+
   .el-main {
     background-color: var(--el-fill-color-lighter);
   }
@@ -84,6 +87,7 @@ const { isLeft, isTop, isLeftTop, setLayoutMode } = useLayoutMode()
   .el-header {
     background-color: var(--el-color-primary);
   }
+
   .el-main {
     background-color: var(--el-fill-color-lighter);
   }
@@ -93,9 +97,11 @@ const { isLeft, isTop, isLeftTop, setLayoutMode } = useLayoutMode()
   .el-header {
     background-color: var(--el-fill-color-darker);
   }
+
   .el-aside {
     background-color: var(--el-color-primary);
   }
+
   .el-main {
     background-color: var(--el-fill-color-lighter);
   }

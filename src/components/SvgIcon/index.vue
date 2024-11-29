@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from "vue"
+import {computed} from "vue"
 
 interface Props {
   prefix?: string
@@ -15,7 +15,7 @@ const symbolId = computed(() => `#${props.prefix}-${props.name}`)
 
 <template>
   <svg class="svg-icon">
-    <use :href="symbolId" />
+    <use :href="symbolId"/>
   </svg>
 </template>
 

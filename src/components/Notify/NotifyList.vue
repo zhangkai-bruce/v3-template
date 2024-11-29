@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type ListItem } from "./data"
+import {type ListItem} from "./data"
 
 interface Props {
   list: ListItem[]
@@ -9,8 +9,8 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <el-empty v-if="props.list.length === 0" />
-  <el-card v-else v-for="(item, index) in props.list" :key="index" shadow="never" class="card-container">
+  <el-empty v-if="props.list.length === 0"/>
+  <el-card v-for="(item, index) in props.list" v-else :key="index" class="card-container" shadow="never">
     <template #header>
       <div class="card-header">
         <div>
@@ -21,7 +21,7 @@ const props = defineProps<Props>()
           <div class="card-time">{{ item.datetime }}</div>
         </div>
         <div v-if="item.avatar" class="card-avatar">
-          <img :src="item.avatar" width="34" />
+          <img :src="item.avatar" width="34"/>
         </div>
       </div>
     </template>
@@ -34,23 +34,28 @@ const props = defineProps<Props>()
 <style lang="scss" scoped>
 .card-container {
   margin-bottom: 10px;
+
   .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .card-title {
       font-weight: bold;
       margin-right: 10px;
     }
+
     .card-time {
       font-size: 12px;
       color: var(--el-text-color-secondary);
     }
+
     .card-avatar {
       display: flex;
       align-items: center;
     }
   }
+
   .card-body {
     font-size: 12px;
   }

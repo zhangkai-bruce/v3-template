@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import { computed, ref, shallowRef } from "vue"
-import { type RouteRecordName, type RouteRecordRaw, useRouter } from "vue-router"
-import { usePermissionStore } from "@/store/modules/permission"
+import {computed, ref, shallowRef} from "vue"
+import {type RouteRecordName, type RouteRecordRaw, useRouter} from "vue-router"
+import {usePermissionStore} from "@/store/modules/permission"
 import SearchResult from "./SearchResult.vue"
 import SearchFooter from "./SearchFooter.vue"
-import { ElMessage, ElScrollbar } from "element-plus"
-import { cloneDeep, debounce } from "lodash-es"
-import { useDevice } from "@/hooks/useDevice"
-import { isExternal } from "@/utils/validate"
+import {ElMessage, ElScrollbar} from "element-plus"
+import {cloneDeep, debounce} from "lodash-es"
+import {useDevice} from "@/hooks/useDevice"
+import {isExternal} from "@/utils/validate"
 
 /** 控制 modal 显隐 */
-const modelValue = defineModel<boolean>({ required: true })
+const modelValue = defineModel<boolean>({required: true})
 
 const router = useRouter()
-const { isMobile } = useDevice()
+const {isMobile} = useDevice()
 
 const inputRef = ref<HTMLInputElement | null>(null)
 const scrollbarRef = ref<InstanceType<typeof ElScrollbar> | null>(null)
@@ -34,7 +34,7 @@ const menusData = computed(() => cloneDeep(usePermissionStore().routes))
 const handleSearch = debounce(() => {
   const flatMenusData = flatTree(menusData.value)
   resultList.value = flatMenusData.filter((menu) =>
-    keyword.value ? menu.meta?.title?.toLocaleLowerCase().includes(keyword.value.toLocaleLowerCase().trim()) : false
+      keyword.value ? menu.meta?.title?.toLocaleLowerCase().includes(keyword.value.toLocaleLowerCase().trim()) : false
   )
   // 默认选中搜索结果的第一项
   const length = resultList.value?.length
@@ -71,7 +71,7 @@ const scrollTo = (index: number) => {
 /** 键盘上键 */
 const handleUp = () => {
   isPressUpOrDown.value = true
-  const { length } = resultList.value
+  const {length} = resultList.value
   if (length === 0) return
   // 获取该 name 在菜单中第一次出现的位置
   const index = resultList.value.findIndex((item) => item.name === activeRouteName.value)
@@ -96,7 +96,7 @@ const handleUp = () => {
 /** 键盘下键 */
 const handleDown = () => {
   isPressUpOrDown.value = true
-  const { length } = resultList.value
+  const {length} = resultList.value
   if (length === 0) return
   // 获取该 name 在菜单中最后一次出现的位置（可解决遇到连续两个相同 name 导致的下键不能生效的问题）
   const index = resultList.value.map((item) => item.name).lastIndexOf(activeRouteName.value)
@@ -120,7 +120,7 @@ const handleDown = () => {
 
 /** 键盘回车键 */
 const handleEnter = () => {
-  const { length } = resultList.value
+  const {length} = resultList.value
   if (length === 0) return
   const name = activeRouteName.value
   const path = resultList.value.find((item) => item.name === name)?.path
@@ -133,7 +133,7 @@ const handleEnter = () => {
     return
   }
   try {
-    router.push({ name })
+    router.push({name})
   } catch {
     ElMessage.error("该菜单有必填的动态参数，无法通过搜索进入")
     return
@@ -149,39 +149,39 @@ const handleReleaseUpOrDown = () => {
 
 <template>
   <el-dialog
-    v-model="modelValue"
-    @opened="inputRef?.focus()"
-    @closed="inputRef?.blur()"
-    @keydown.up="handleUp"
-    @keydown.down="handleDown"
-    @keydown.enter="handleEnter"
-    @keyup.up.down="handleReleaseUpOrDown"
-    :before-close="handleClose"
-    :width="modalWidth"
-    top="5vh"
-    class="search-modal__private"
-    append-to-body
+      v-model="modelValue"
+      :before-close="handleClose"
+      :width="modalWidth"
+      append-to-body
+      class="search-modal__private"
+      top="5vh"
+      @closed="inputRef?.blur()"
+      @opened="inputRef?.focus()"
+      @keydown.up="handleUp"
+      @keydown.down="handleDown"
+      @keydown.enter="handleEnter"
+      @keyup.up.down="handleReleaseUpOrDown"
   >
-    <el-input ref="inputRef" v-model="keyword" @input="handleSearch" placeholder="搜索菜单" size="large" clearable>
+    <el-input ref="inputRef" v-model="keyword" clearable placeholder="搜索菜单" size="large" @input="handleSearch">
       <template #prefix>
-        <SvgIcon name="search" />
+        <SvgIcon name="search"/>
       </template>
     </el-input>
-    <el-empty v-if="resultList.length === 0" description="暂无搜索结果" :image-size="100" />
+    <el-empty v-if="resultList.length === 0" :image-size="100" description="暂无搜索结果"/>
     <template v-else>
       <p>搜索结果</p>
-      <el-scrollbar ref="scrollbarRef" max-height="40vh" always>
+      <el-scrollbar ref="scrollbarRef" always max-height="40vh">
         <SearchResult
-          ref="searchResultRef"
-          v-model="activeRouteName"
-          :list="resultList"
-          :isPressUpOrDown="isPressUpOrDown"
-          @click="handleEnter"
+            ref="searchResultRef"
+            v-model="activeRouteName"
+            :isPressUpOrDown="isPressUpOrDown"
+            :list="resultList"
+            @click="handleEnter"
         />
       </el-scrollbar>
     </template>
     <template #footer>
-      <SearchFooter :total="resultList.length" />
+      <SearchFooter :total="resultList.length"/>
     </template>
   </el-dialog>
 </template>
@@ -191,9 +191,11 @@ const handleReleaseUpOrDown = () => {
   .svg-icon {
     font-size: 18px;
   }
+
   .el-dialog__header {
     display: none;
   }
+
   .el-dialog__footer {
     border-top: 1px solid var(--el-border-color);
     padding-top: var(--el-dialog-padding-primary);
