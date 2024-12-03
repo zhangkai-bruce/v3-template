@@ -61,23 +61,23 @@ export const constantRoutes: RouteRecordRaw[] = [
             }
         ]
     },
-    {
-        path: "/unocss",
-        component: Layouts,
-        redirect: "/unocss/index",
-        children: [
-            {
-                path: "index",
-                component: () => import("@/views/unocss/index.vue"),
-                name: "UnoCSS",
-                meta: {
-                    title: "UnoCSS",
-                    svgIcon: "unocss"
-                }
-            }
-        ]
-    },
-    {
+    // {
+    //     path: "/unocss",
+    //     component: Layouts,
+    //     redirect: "/unocss/index",
+    //     children: [
+    //         {
+    //             path: "index",
+    //             component: () => import("@/views/unocss/index.vue"),
+    //             name: "UnoCSS",
+    //             meta: {
+    //                 title: "UnoCSS",
+    //                 svgIcon: "unocss"
+    //             }
+    //         }
+    //     ]
+    // },
+ /*   {
         path: "/link",
         meta: {
             title: "外链",
@@ -103,7 +103,7 @@ export const constantRoutes: RouteRecordRaw[] = [
                 }
             }
         ]
-    },
+    },*/
     {
         path: "/table",
         component: Layouts,
@@ -119,11 +119,12 @@ export const constantRoutes: RouteRecordRaw[] = [
                 component: () => import("@/views/table/element-plus/index.vue"),
                 name: "ElementPlus",
                 meta: {
-                    title: "Element Plus",
+                    title: "用户列表",
+                    elIcon: "Grid",
                     keepAlive: true
                 }
             },
-            {
+         /*   {
                 path: "vxe-table",
                 component: () => import("@/views/table/vxe-table/index.vue"),
                 name: "VxeTable",
@@ -131,10 +132,10 @@ export const constantRoutes: RouteRecordRaw[] = [
                     title: "Vxe Table",
                     keepAlive: true
                 }
-            }
+            }*/
         ]
     },
-    {
+/*    {
         path: "/menu",
         component: Layouts,
         redirect: "/menu/menu1",
@@ -212,8 +213,8 @@ export const constantRoutes: RouteRecordRaw[] = [
                 }
             }
         ]
-    },
-    {
+    },*/
+/*    {
         path: "/hook-demo",
         component: Layouts,
         redirect: "/hook-demo/use-fetch-select",
@@ -249,7 +250,7 @@ export const constantRoutes: RouteRecordRaw[] = [
                 }
             }
         ]
-    }
+    }*/
 ]
 
 /**

@@ -4,16 +4,16 @@ import type * as Table from "./types/table"
 /** 增 */
 export function createTableDataApi(data: Table.CreateOrUpdateTableRequestData) {
     return request({
-        url: "table",
+        url: "user/register",
         method: "post",
         data
     })
 }
 
 /** 删 */
-export function deleteTableDataApi(id: string) {
+export function deleteTableDataApi(ids: string[]) {
     return request({
-        url: `table/${id}`,
+        url: `user/delete/${ids}`,
         method: "delete"
     })
 }
@@ -21,17 +21,17 @@ export function deleteTableDataApi(id: string) {
 /** 改 */
 export function updateTableDataApi(data: Table.CreateOrUpdateTableRequestData) {
     return request({
-        url: "table",
-        method: "put",
+        url: "user/update",
+        method: "post",
         data
     })
 }
 
 /** 查 */
-export function getTableDataApi(params: Table.TableRequestData) {
+export function getTableDataApi(data: Table.TableRequestData) {
     return request<Table.TableResponseData>({
-        url: "table",
-        method: "get",
-        params
+        url: "user/list/page",
+        method: "post",
+        data
     })
 }

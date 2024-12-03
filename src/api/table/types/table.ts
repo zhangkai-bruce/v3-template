@@ -1,7 +1,8 @@
 export interface CreateOrUpdateTableRequestData {
     id?: string
-    username: string
-    password?: string
+    userAccount: string
+    userPassword?: string
+    checkPassword?: string
 }
 
 export interface TableRequestData {
@@ -10,9 +11,9 @@ export interface TableRequestData {
     /** 查询条数 */
     size: number
     /** 查询参数：用户名 */
-    username?: string
+    userAccount?: string
     /** 查询参数：手机号 */
-    phone?: string
+    userRole?: string
 }
 
 export interface TableData {
@@ -20,12 +21,12 @@ export interface TableData {
     email: string
     id: string
     phone: string
-    roles: string
-    status: boolean
-    username: string
+    userRole: string
+    isDelete: boolean
+    userAccount: string
 }
 
 export type TableResponseData = ApiResponseData<{
-    list: TableData[]
+    records: TableData[]
     total: number
 }>
