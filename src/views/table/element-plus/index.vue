@@ -111,6 +111,20 @@ const resetSearch = () => {
   searchFormRef.value?.resetFields()
   handleSearch()
 }
+const roleDict = [
+  {
+    value: 'admin',
+    label: '超级管理员',
+  },
+  {
+    value: 'user',
+    label: '普通用户',
+  },
+  {
+    value: 'ban',
+    label: '禁用用户',
+  },
+]
 //#endregion
 
 /** 监听分页参数的变化 */
@@ -124,6 +138,16 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getTabl
       <el-form ref="searchFormRef" :inline="true" :model="searchData">
         <el-form-item label="用户名" prop="userAccount">
           <el-input v-model="searchData.userAccount" placeholder="请输入"/>
+        </el-form-item>
+        <el-form-item label="角色" prop="userRole">
+          <el-select v-model="searchData.userRole" placeholder="请选择" style="width: 240px">
+            <el-option
+                v-for="item in roleDict"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            />
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button :icon="Search" type="primary" @click="handleSearch">查询</el-button>
