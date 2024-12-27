@@ -67,7 +67,9 @@ const createCode = () => {
     codeUrl.value = res.data
   })
 }
+const thirdHandleLogin = (type: string) => {
 
+}
 /** 初始化验证码 */
 createCode()
 </script>
@@ -133,6 +135,22 @@ createCode()
           </el-form-item>
           <el-button :loading="loading" size="large" type="primary" @click.prevent="handleLogin">登 录</el-button>
         </el-form>
+        <el-divider>第三方登录</el-divider>
+        <div class="third-party-login">
+          <el-button type="text" @click="thirdHandleLogin('github')" class="login-btn">
+            <img src="@/assets/layouts/github-logo.png" style="width: 24px; height: 24px;" alt="GitHub"/>
+          </el-button>
+          <el-button type="text" @click="thirdHandleLogin('wechat')" class="login-btn">
+            <img src="@/assets/layouts/wechat-logo.png" style="width: 24px; height: 24px;" alt="微信"/>
+          </el-button>
+          <el-button type="text" @click="thirdHandleLogin('alipay')" class="login-btn">
+            <img src="@/assets/layouts/alipay-logo.png" style="width: 24px; height: 24px;" alt="支付宝"/>
+          </el-button>
+          <el-button type="text" @click="thirdHandleLogin('qq')" class="login-btn">
+            <img src="@/assets/layouts/qq-logo.png" style="width: 24px; height: 24px;" alt="QQ"/>
+          </el-button>
+        </div>
+
       </div>
     </div>
   </div>
@@ -196,5 +214,19 @@ createCode()
       }
     }
   }
+
+  .third-party-login {
+    display: flex; /* 使用 flexbox 布局 */
+    justify-content: center; /* 居中对齐 */
+    gap: 10px; /* 按钮之间的间距 */
+    margin-top: 10px; /* 与分割线的间距 */
+  }
+
+  .login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
 }
 </style>
