@@ -68,7 +68,9 @@ const createCode = () => {
   })
 }
 const thirdHandleLogin = (type: string) => {
-
+  if (type === "github") {
+    window.location.href = "http://localhost:8101/api/third/login/getAuthorizationUrl";
+  }
 }
 /** 初始化验证码 */
 createCode()

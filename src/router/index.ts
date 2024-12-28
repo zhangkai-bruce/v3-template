@@ -45,6 +45,13 @@ export const constantRoutes: RouteRecordRaw[] = [
         }
     },
     {
+        path: '/auth-redirect',
+        component: () => import('@/views/login/auth-redirect.vue'),
+        meta: {
+            hidden: true,
+        }
+    },
+    {
         path: "/",
         component: Layouts,
         redirect: "/dashboard",
