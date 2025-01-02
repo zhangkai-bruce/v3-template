@@ -4,7 +4,6 @@ import {storeToRefs} from "pinia"
 import {useAppStore} from "@/store/modules/app"
 import {useSettingsStore} from "@/store/modules/settings"
 import {useUserStore} from "@/store/modules/user"
-import {UserFilled} from "@element-plus/icons-vue"
 import Hamburger from "../Hamburger/index.vue"
 import Breadcrumb from "../Breadcrumb/index.vue"
 import Sidebar from "../Sidebar/index.vue"
@@ -33,8 +32,9 @@ const logout = () => {
   userStore.logout()
   router.push("/login")
 }
+const userAvatar = userStore.userAvatar // 用户头像链接
+const userInitials = userStore.username // 用户名的首字母（头像为空时显示）
 </script>
-
 <template>
   <div class="navigation-bar">
     <Hamburger
@@ -51,17 +51,18 @@ const logout = () => {
       <ThemeSwitch v-if="showThemeSwitch" class="right-menu-item"/>
       <Notify v-if="showNotify" class="right-menu-item"/>
       <el-dropdown class="right-menu-item">
-        <div class="right-menu-avatar">
-          <el-avatar :icon="UserFilled" :size="30"/>
-          <span>{{ userStore.username }}</span>
-        </div>
+        <el-avatar
+            :src="userAvatar"
+            :size="40"
+            class="avatar-dropdown"
+        >
+          <span v-if="!userAvatar">{{ userInitials }}</span>
+        </el-avatar>
         <template #dropdown>
+          <!-- 展示头像 -->
           <el-dropdown-menu>
-            <a href="https://github.com/un-pany/v3-admin-vite" target="_blank">
+            <a href="https://github.com/zhangkai-bruce" target="_blank">
               <el-dropdown-item>GitHub</el-dropdown-item>
-            </a>
-            <a href="https://gitee.com/un-pany/v3-admin-vite" target="_blank">
-              <el-dropdown-item>Gitee</el-dropdown-item>
             </a>
             <el-dropdown-item divided @click="logout">
               <span style="display: block">退出登录</span>
@@ -138,6 +139,12 @@ const logout = () => {
         }
       }
     }
+  }
+
+  .avatar-dropdown {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 10px;
   }
 }
 </style>
