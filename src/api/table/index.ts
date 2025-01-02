@@ -35,3 +35,11 @@ export function getTableDataApi(data: Table.TableRequestData) {
         data
     })
 }
+
+/** 修改用户状态 */
+export function updateStatus(id, status) {
+    return request({
+        url: `user/update/status/${id}/${status}`,
+        method: "get",
+    })
+}

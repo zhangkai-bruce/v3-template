@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {reactive, ref, watch} from "vue"
-import {createTableDataApi, deleteTableDataApi, getTableDataApi, updateTableDataApi} from "@/api/table"
+import {createTableDataApi, deleteTableDataApi, getTableDataApi, updateTableDataApi, updateStatus} from "@/api/table"
 import {type CreateOrUpdateTableRequestData, type TableData} from "@/api/table/types/table"
 import {ElMessage, ElMessageBox, type FormInstance, type FormRules} from "element-plus"
 import {CirclePlus, Refresh, RefreshRight, Search} from "@element-plus/icons-vue"
@@ -111,6 +111,14 @@ const resetSearch = () => {
   searchFormRef.value?.resetFields()
   handleSearch()
 }
+const handleStatusChange = (row) => {
+  updateStatus(row.id, row.status).then((resp) => {
+    if (resp.code == 0) {
+      ElMessage.success("操作成功")
+    }
+  })
+
+}
 const roleDict = [
   {
     value: 'admin',
@@ -186,8 +194,14 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getTabl
           </el-table-column>
           <el-table-column align="center" label="状态" prop="isDelete">
             <template #default="scope">
-              <el-tag v-if="scope.row.status == 0" disable-transitions effect="plain" type="success">启用</el-tag>
-              <el-tag v-else disable-transitions effect="plain" type="danger">禁用</el-tag>
+              <el-switch
+                  v-model="scope.row.status"
+                  :active-value="1"
+                  :inactive-value="0"
+                  @change="handleStatusChange(scope.row)"
+                  :disabled="scope.row.userRole === 'admin'"
+              />
+              禁用/启用
             </template>
           </el-table-column>
           <el-table-column align="center" label="创建时间" prop="createTime"/>
