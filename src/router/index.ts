@@ -68,23 +68,23 @@ export const constantRoutes: RouteRecordRaw[] = [
             }
         ]
     },
-    // {
-    //     path: "/unocss",
-    //     component: Layouts,
-    //     redirect: "/unocss/index",
-    //     children: [
-    //         {
-    //             path: "index",
-    //             component: () => import("@/views/unocss/index.vue"),
-    //             name: "UnoCSS",
-    //             meta: {
-    //                 title: "UnoCSS",
-    //                 svgIcon: "unocss"
-    //             }
-    //         }
-    //     ]
-    // },
- /*   {
+   /* {
+        path: "/unocss",
+        component: Layouts,
+        redirect: "/unocss/index",
+        children: [
+            {
+                path: "index",
+                component: () => import("@/views/unocss/index.vue"),
+                name: "UnoCSS",
+                meta: {
+                    title: "UnoCSS",
+                    svgIcon: "unocss"
+                }
+            }
+        ]
+    },
+    {
         path: "/link",
         meta: {
             title: "外链",
@@ -110,39 +110,8 @@ export const constantRoutes: RouteRecordRaw[] = [
                 }
             }
         ]
-    },*/
-    {
-        path: "/table",
-        component: Layouts,
-        redirect: "/table/element-plus",
-        name: "Table",
-        meta: {
-            title: "表格",
-            elIcon: "Grid"
-        },
-        children: [
-            {
-                path: "element-plus",
-                component: () => import("@/views/table/element-plus/index.vue"),
-                name: "ElementPlus",
-                meta: {
-                    title: "用户列表",
-                    elIcon: "Grid",
-                    keepAlive: true
-                }
-            },
-         /*   {
-                path: "vxe-table",
-                component: () => import("@/views/table/vxe-table/index.vue"),
-                name: "VxeTable",
-                meta: {
-                    title: "Vxe Table",
-                    keepAlive: true
-                }
-            }*/
-        ]
     },
-/*    {
+    {
         path: "/menu",
         component: Layouts,
         redirect: "/menu/menu1",
@@ -220,8 +189,8 @@ export const constantRoutes: RouteRecordRaw[] = [
                 }
             }
         ]
-    },*/
-/*    {
+    },
+    {
         path: "/hook-demo",
         component: Layouts,
         redirect: "/hook-demo/use-fetch-select",
@@ -296,7 +265,31 @@ export const dynamicRoutes: RouteRecordRaw[] = [
                 }
             }
         ]
-    }
+    },
+    {
+        path: "/table",
+        component: Layouts,
+        redirect: "/table/element-plus",
+        name: "Table",
+        meta: {
+            title: "表格",
+            elIcon: "Grid",
+            roles: ["admin"]
+        },
+        children: [
+            {
+                path: "element-plus",
+                component: () => import("@/views/table/element-plus/index.vue"),
+                name: "ElementPlus",
+                meta: {
+                    title: "用户列表",
+                    elIcon: "Grid",
+                    roles: ["admin"],
+                    keepAlive: true
+                }
+            },
+        ]
+    },
 ]
 
 export const router = createRouter({

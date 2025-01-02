@@ -33,7 +33,6 @@ const logout = () => {
   router.push("/login")
 }
 const userAvatar = userStore.userAvatar // 用户头像链接
-const userInitials = userStore.username // 用户名的首字母（头像为空时显示）
 </script>
 <template>
   <div class="navigation-bar">
@@ -56,7 +55,6 @@ const userInitials = userStore.username // 用户名的首字母（头像为空�
             :size="40"
             class="avatar-dropdown"
         >
-          <span v-if="!userAvatar">{{ userInitials }}</span>
         </el-avatar>
         <template #dropdown>
           <!-- 展示头像 -->
