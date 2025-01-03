@@ -43,3 +43,13 @@ export function updateStatus(id, status) {
         method: "get",
     })
 }
+
+/** 更新个人信息 */
+export function updateUserDetails(data) {
+    return request({
+        url: "user/update",
+        method: "post",
+        data
+    })
+}
+
